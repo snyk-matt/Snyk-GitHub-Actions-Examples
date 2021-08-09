@@ -1,0 +1,15 @@
+name: Snyk example
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: snyk/actions/setup@master
+      - uses: actions/setup-node@v2.4.0
+        with:
+          node-version: 12.x
+      - name: Snyk SAST
+        run: snyk code test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
